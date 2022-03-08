@@ -15,20 +15,20 @@
         <app-header :propsdata="num"></app-header>
         <app-content @pass="wara"></app-content>
     </div>
-    
+
     <script>
         Vue.config.devtools = true;
 
         let appHeader = {
             template: '<div>{{propsdata}}</div>',
-            props: ['propsdata']
+            props: ['propsdata'],
         }
-
+        
         let appContent = {
             template: '<button @click="passNum">click me</button>',
             methods: {
                 passNum(){
-                    this.$emit('pass',10)
+                    this.$emit('pass',10);
                 }
             },
         }
@@ -42,7 +42,7 @@
             },
             data() {
                 return {
-                    num: 0 
+                    num: 0,
                 }
             },
             methods:{
@@ -51,6 +51,7 @@
                 }
             }
         })
+
     </script>
 
 </body>
