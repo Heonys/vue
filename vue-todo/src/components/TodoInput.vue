@@ -17,8 +17,11 @@ export default {
   },
   methods: {
     addTodo(){
-      localStorage.setItem(this.todoData, this.todoData);
-      this.clearInput()
+      if(this.todoData !== ''){
+        let obj = { complete: false, item: this.todoData}
+        localStorage.setItem(this.todoData, JSON.stringify(obj));
+        this.clearInput()
+      }
     },
     clearInput(){
       this.todoData = "";
@@ -38,8 +41,10 @@ input:focus{
   height: 50px;
   line-height: 50px;
   border-radius: 5px;
+  margin-bottom: 1rem;
 }
 .inputBox input{
+  
   border-style: none;
   font-size: 0.9rem;
 }
