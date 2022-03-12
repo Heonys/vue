@@ -1,9 +1,9 @@
 <template>
   <div>
     <todo-header></todo-header>
-    <todo-input></todo-input>
-    <todo-list></todo-list>
-    <todo-footer></todo-footer>
+    <todo-input @inputdata="receiveInput"></todo-input>
+    <todo-list :propsdata="todoDatas" @removeOne="removeList" @toggleComplete="toggleOne"></todo-list>
+    <todo-footer @todoClear="listClear"></todo-footer>
   </div>
 </template>
 
@@ -15,7 +15,41 @@ import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 
 export default {
+    data() {
+      return {
+        todoDatas: [],
+      }
+    },
+    created() {
+    if (localStorage.length > 0) {
+      for (let i = 0; i < localStorage.length; i++) {
+        this.todoDatas.push(
+          JSON.parse(localStorage.getItem(localStorage.key(i)))
+        );
+      }
+    }
+  },
+  methods: {
+    receiveInput(value){
 
+      let obj = { complete: false, item: value}
+      localStorage.setItem(value, JSON.stringify(obj));
+      this.todoDatas.push(obj)
+    },
+    removeList(todoData, index){
+      localStorage.removeItem(todoData.item);
+      this.todoDatas.splice(index, 1);
+    },
+    toggleOne(todoData){
+      todoData.complete = !todoData.complete;
+      localStorage.removeItem(todoData.item);
+      localStorage.setItem(todoData.item, JSON.stringify(todoData));
+    },
+    listClear(){
+      localStorage.clear();
+      this.todoDatas = [];
+    }
+  },
   components:{
     'todo-header':TodoHeader,
     'todo-input':TodoInput,

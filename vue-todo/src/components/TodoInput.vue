@@ -5,28 +5,58 @@
       <span class="addContainer" @click="addTodo">
         <i class="fa-solid fa-plus addBtn"></i>
       </span>
+
+    <app-modal v-if="showModal" @close="showModal = false">
+    <!--
+      you can use custom content here to overwrite
+      default content
+    -->
+    <h3 slot="header">
+      경고 ! 
+      <i class="closeModalBtn fa-solid fa-circle-xmark" @click="showModal = false"></i>
+    </h3>
+
+    <h3 slot="body">
+      아무것도 입력하지 않았습니다
+    </h3>
+
+
+
+
+    </app-modal>
+
   </div>
 </template>
 
 <script>
+import appModal from './common/AppModal.vue'
+
+
 export default {
   data() {
     return {
       todoData: "",
+      showModal: false,
     }
   },
   methods: {
     addTodo(){
       if(this.todoData !== ''){
-        let obj = { complete: false, item: this.todoData}
-        localStorage.setItem(this.todoData, JSON.stringify(obj));
+
+        this.$emit("inputdata",this.todoData)
         this.clearInput()
+
+      }else{
+        this.showModal = !this.showModal;
       }
     },
     clearInput(){
       this.todoData = "";
-    }
+    },
   },
+  components:{
+    'app-modal': appModal, 
+  }
 }
 </script>
 
@@ -60,6 +90,10 @@ input:focus{
 .addBtn {
   color: white;
   vertical-align: middle;
+}
+
+.closeModalBtn{
+  color:#42b983;
 }
 
 
