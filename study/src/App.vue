@@ -9,15 +9,15 @@
         </div>
         <div>
           <label for="int1">숫자1</label>
-          <input class="m-1" id="int1" type="text" v-model="formData.int1">
+          <input class="m-1" id="int1" type="number" v-model="formData.int1">
         </div>
         <div>
           <label for="int2">숫자2</label>
-          <input class="m-1" id="int2" type="text" v-model="formData.int2">
+          <input class="m-1" id="int2" type="number" v-model="formData.int2">
         </div>
         <div class="mb-2">
           <label for="sum">합계</label>
-          <input class="m-1" id="sum" type="text" v-model="sum" readonly>
+          <input class="m-1" id="sum" type="number" v-model="sum" readonly>
         </div>
 
       <button type="button" class="btn btn-primary m-2" @click="sumGet">GET</button> 
@@ -32,7 +32,7 @@
               id="combo"
               class="form-select form-select-lg m-2"
               aria-label="Default select example"
-              style="width: 100px"
+              style="width: 8rem"
           >
               <option value="none">선택</option>
               <option value="title">제목</option>
@@ -93,7 +93,7 @@
                 </tr>
             </tbody>
         </table>
-        {{ selectformData.returnobj }}
+        {{ returnArray }}
     </div>
 </template>
 
@@ -112,8 +112,8 @@ export default {
           selectformData: {
             selectOption: null,
             inputValue: null,
-            returnobj: [],
-          }
+          },
+          returnArray: [],
         };
     },
     methods: {
@@ -121,7 +121,7 @@ export default {
             var elment = document.getElementById("combo");
             var selectInex =
                 document.getElementById("combo").options.selectedIndex;
-            this.selectOption = elment.options[selectInex].value;
+            this.selectformData.selectOption = elment.options[selectInex].value;
 
             // const formData = {
             //     selectOption: this.selectOption,
@@ -130,10 +130,10 @@ export default {
             console.log(this.selectformData);
 
             axios
-                .post("/api/test", this.selectformData)
+                .post("/api/board", this.selectformData)
                 .then((res) => {
                     console.log(res.data);
-                    this.selectformData.returnobj = res.data;
+                    this.returnArray = res.data;
                 })
                 .catch((err) => {
                     console.log(err);
