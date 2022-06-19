@@ -1,4 +1,4 @@
-# againtodoapp
+# vue-news
 
 ## Project setup
 ```
