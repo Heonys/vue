@@ -1,0 +1,38 @@
+
+우선 programfiles -> nodejs 폴더 삭제
+
+Users/user/Appdata/Roaming -> npm,  nvm(설치된경우) 삭제
+
+ 
+
+https://github.com/coreybutler/nvm-windows/releases
+
+들어가서 nvm-setup.zip 압축해제
+
+nvm-setup.exe 실행 후 설치
+
+****cmd, 파워셀 관리자명령으로 실행*****
+
+nvm install 10.16.3
+
+nvm use 10.16.3
+
+ 
+
+만약 use에서 오류 날 경우
+
+다시 nodejs, npm, nvm 삭제.
+
+폴더 없으면 그냥 그대로 진행
+
+(아마 nvm 빼고 없을거에요)
+
+ 
+
+자기가 원하는 경로에 nvm 폴더 생성
+
+setup.exe 실행하고 설치 시 폴더경로를
+
+nvm 폴더 생성한 경로로 지정
+
+다시 nvm install nvm use
